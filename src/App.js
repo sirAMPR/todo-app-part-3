@@ -7,6 +7,21 @@ class App extends Component {
     todos: todosList
   };
 
+  handleComplete = (event, todoId) => {
+    // create copy
+    const newTodos = this.state.todos.slice();
+    // modify copy
+    const newnewTodos = newTodos.map(todo => {
+      // if (todo.id === todoIdToDelete) {
+      // find todo to modify
+      // change it's completed value to true
+      if (todo.id === todoId) todo.completed = !todo.completed;
+      return todo;
+    });
+    // overwrite original
+    this.setState({ todos: newnewTodos });
+  };
+
   handleAddTodo = event => {
     if (event.key === "Enter") {
       // create new todo
@@ -40,7 +55,10 @@ class App extends Component {
             autofocus
           />
         </header>
-        <TodoList todos={this.state.todos} />
+        <TodoList
+          todos={this.state.todos}
+          handleComplete={this.handleComplete}
+        />
         <footer className="footer">
           <span className="todo-count">
             <strong>0</strong> item(s) left
@@ -61,6 +79,7 @@ class TodoItem extends Component {
             className="toggle"
             type="checkbox"
             checked={this.props.completed}
+            onChange={event => this.props.handleComplete(event, this.props.id)}
           />
           <label>{this.props.title}</label>
           <button className="destroy" />
@@ -76,7 +95,12 @@ class TodoList extends Component {
       <section className="main">
         <ul className="todo-list">
           {this.props.todos.map(todo => (
-            <TodoItem title={todo.title} completed={todo.completed} />
+            <TodoItem
+              title={todo.title}
+              completed={todo.completed}
+              id={todo.id}
+              handleComplete={this.props.handleComplete}
+            />
           ))}
         </ul>
       </section>
