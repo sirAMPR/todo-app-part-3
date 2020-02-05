@@ -6,6 +6,28 @@ class App extends Component {
   state = {
     todos: todosList
   };
+
+  handleAddTodo = event => {
+    if (event.key === "Enter") {
+      // create new todo
+      const newTodo = {
+        userId: 1,
+        id: Math.floor(Math.random() * 1000000),
+        title: event.target.value,
+        completed: false
+      };
+
+      // update component state with new todo
+      // create copy of data
+      const newTodos = this.state.todos.slice();
+      // modify and overwrite original
+      newTodos.push(newTodo);
+      this.setState({ todos: newTodos });
+
+      event.target.value = "";
+    }
+  };
+
   render() {
     return (
       <section className="todoapp">
@@ -14,6 +36,7 @@ class App extends Component {
           <input
             className="new-todo"
             placeholder="What needs to be done?"
+            onKeyDown={this.handleAddTodo}
             autofocus
           />
         </header>
