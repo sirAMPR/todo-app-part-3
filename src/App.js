@@ -21,9 +21,11 @@ class App extends Component {
     this.setState({ todos: newnewTodos });
   };
 
-  handleDelete = todoId => event => {
-    const newTodos = this.state.todos.filter(todo => todo.id !== todoId);
-    this.setState({ todos: newTodos });
+  handleDelete = (event, todoId) => {
+    console.log(todoId);
+    const newTodos = this.state.todos.slice();
+    const newnewTodos = newTodos.filter(todo => todo.id !== todoId);
+    this.setState({ todos: newnewTodos });
   };
 
   handleAddTodo = event => {
@@ -47,6 +49,14 @@ class App extends Component {
     }
   };
 
+  handleClearCompleted = event => {
+    this.state.todos.forEach(todo => {
+      if (todo.completed) {
+        this.handleDelete(event, todo.id);
+      }
+    });
+  };
+
   render() {
     return (
       <section className="todoapp">
@@ -68,7 +78,12 @@ class App extends Component {
           <span className="todo-count">
             <strong>0</strong> item(s) left
           </span>
-          <button className="clear-completed">Clear completed</button>
+          <button
+            className="clear-completed"
+            onClick={this.handleClearCompleted}
+          >
+            Clear completed
+          </button>
         </footer>
       </section>
     );
@@ -89,7 +104,7 @@ class TodoItem extends Component {
           <label>{this.props.title}</label>
           <button
             className="destroy"
-            onClick={this.props.handleDelete(this.props.id)}
+            onClick={event => this.props.handleDelete(event, this.props.id)}
           />
         </div>
       </li>
