@@ -12,7 +12,6 @@ class App extends Component {
     const newTodos = this.state.todos.slice();
     // modify copy
     const newnewTodos = newTodos.map(todo => {
-      // if (todo.id === todoIdToDelete) {
       // find todo to modify
       // change it's completed value to true
       if (todo.id === todoId) todo.completed = !todo.completed;
@@ -20,6 +19,11 @@ class App extends Component {
     });
     // overwrite original
     this.setState({ todos: newnewTodos });
+  };
+
+  handleDelete = todoId => event => {
+    const newTodos = this.state.todos.filter(todo => todo.id !== todoId);
+    this.setState({ todos: newTodos });
   };
 
   handleAddTodo = event => {
@@ -58,6 +62,7 @@ class App extends Component {
         <TodoList
           todos={this.state.todos}
           handleComplete={this.handleComplete}
+          handleDelete={this.handleDelete}
         />
         <footer className="footer">
           <span className="todo-count">
@@ -82,7 +87,10 @@ class TodoItem extends Component {
             onChange={event => this.props.handleComplete(event, this.props.id)}
           />
           <label>{this.props.title}</label>
-          <button className="destroy" />
+          <button
+            className="destroy"
+            onClick={this.props.handleDelete(this.props.id)}
+          />
         </div>
       </li>
     );
@@ -100,6 +108,7 @@ class TodoList extends Component {
               completed={todo.completed}
               id={todo.id}
               handleComplete={this.props.handleComplete}
+              handleDelete={this.props.handleDelete}
             />
           ))}
         </ul>
