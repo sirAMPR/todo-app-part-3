@@ -22,7 +22,6 @@ class App extends Component {
   };
 
   handleDelete = (event, todoId) => {
-    console.log(todoId);
     const newTodos = this.state.todos.slice();
     const newnewTodos = newTodos.filter(todo => todo.id !== todoId);
     this.setState({ todos: newnewTodos });
@@ -50,11 +49,9 @@ class App extends Component {
   };
 
   handleClearCompleted = event => {
-    this.state.todos.forEach(todo => {
-      if (todo.completed) {
-        this.handleDelete(event, todo.id);
-      }
-    });
+    const newTodos = this.state.todos.slice();
+    const newnewTodos = newTodos.filter(todo => !todo.completed);
+    this.setState({ todos: newnewTodos });
   };
 
   render() {
