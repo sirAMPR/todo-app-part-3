@@ -72,15 +72,22 @@ class App extends Component {
           handleDelete={this.handleDelete}
         />
         <footer className="footer">
+          {/* <!-- This should be `0 items left` by default --> */}
           <span className="todo-count">
             <strong>0</strong> item(s) left
           </span>
-          <button
-            className="clear-completed"
-            onClick={this.handleClearCompleted}
-          >
-            Clear completed
-          </button>
+          <ul className="filters">
+            <li>
+              <a href="/">All</a>
+            </li>
+            <li>
+              <a href="/active">Active</a>
+            </li>
+            <li>
+              <a href="/completed">Completed</a>
+            </li>
+          </ul>
+          <button className="clear-completed">Clear completed</button>
         </footer>
       </section>
     );
