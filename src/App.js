@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./index.css";
 import todosList from "./todos.json";
+import { Route, Link } from "react-router-dom";
 
 class App extends Component {
   state = {
@@ -66,10 +67,36 @@ class App extends Component {
             autofocus
           />
         </header>
-        <TodoList
-          todos={this.state.todos}
-          handleComplete={this.handleComplete}
-          handleDelete={this.handleDelete}
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <TodoList
+              todos={this.state.todos}
+              handleComplete={this.handleComplete}
+              handleDelete={this.handleDelete}
+            />
+          )}
+        />
+        <Route
+          path="/active"
+          render={() => (
+            <TodoList
+              todos={this.state.todos.filter(todo => todo.completed === false)}
+              handleComplete={this.handleComplete}
+              handleDelete={this.handleDelete}
+            />
+          )}
+        />
+        <Route
+          path="/completed"
+          render={() => (
+            <TodoList
+              todos={this.state.todos.filter(todo => todo.completed === true)}
+              handleComplete={this.handleComplete}
+              handleDelete={this.handleDelete}
+            />
+          )}
         />
         <footer className="footer">
           {/* <!-- This should be `0 items left` by default --> */}
@@ -78,16 +105,21 @@ class App extends Component {
           </span>
           <ul className="filters">
             <li>
-              <a href="/">All</a>
+              <Link to="/">All</Link>
             </li>
             <li>
-              <a href="/active">Active</a>
+              <Link to="/active">Active</Link>
             </li>
             <li>
-              <a href="/completed">Completed</a>
+              <Link to="/completed">Completed</Link>
             </li>
           </ul>
-          <button className="clear-completed">Clear completed</button>
+          <button
+            className="clear-completed"
+            onClick={this.handleClearCompleted}
+          >
+            Clear completed
+          </button>
         </footer>
       </section>
     );
