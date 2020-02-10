@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./index.css";
 import todosList from "./todos.json";
-import { Route, Link } from "react-router-dom";
+import { Route, NavLink } from "react-router-dom";
 
 class App extends Component {
   state = {
@@ -105,13 +105,19 @@ class App extends Component {
           </span>
           <ul className="filters">
             <li>
-              <Link to="/">All</Link>
+              <NavLink exact to="/" activeClassName="selected">
+                All
+              </NavLink>
             </li>
             <li>
-              <Link to="/active">Active</Link>
+              <NavLink to="/active" activeClassName="selected">
+                Active
+              </NavLink>
             </li>
             <li>
-              <Link to="/completed">Completed</Link>
+              <NavLink to="/completed" activeClassName="selected">
+                Completed
+              </NavLink>
             </li>
           </ul>
           <button
