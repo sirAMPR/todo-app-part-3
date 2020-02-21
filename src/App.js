@@ -3,23 +3,9 @@ import "./index.css";
 import { Route, NavLink } from "react-router-dom";
 import TodoList from "./TodoList.js";
 import { connect } from "react-redux";
-
-import {
-  toggleTodo,
-  addTodo,
-  deleteTodo,
-  clearCompletedTodos
-} from "./actions";
+import { addTodo, clearCompletedTodos } from "./actions";
 
 class App extends Component {
-  handleComplete = (event, todoId) => {
-    this.props.toggleTodo(todoId);
-  };
-
-  handleDelete = (event, todoId) => {
-    this.props.deleteTodo(todoId);
-  };
-
   handleAddTodo = event => {
     if (event.key === "Enter") {
       this.props.addTodo(event.target.value);
@@ -50,7 +36,6 @@ class App extends Component {
             <TodoList
               todos={this.props.todos}
               handleComplete={this.handleComplete}
-              handleDelete={this.handleDelete}
             />
           )}
         />
@@ -60,7 +45,6 @@ class App extends Component {
             <TodoList
               todos={this.props.todos.filter(todo => todo.completed === false)}
               handleComplete={this.handleComplete}
-              handleDelete={this.handleDelete}
             />
           )}
         />
@@ -70,12 +54,10 @@ class App extends Component {
             <TodoList
               todos={this.props.todos.filter(todo => todo.completed === true)}
               handleComplete={this.handleComplete}
-              handleDelete={this.handleDelete}
             />
           )}
         />
         <footer className="footer">
-          {/* <!-- This should be `0 items left` by default --> */}
           <span className="todo-count">
             <strong>
               {this.props.todos.filter(todo => todo.completed === false).length}
@@ -119,9 +101,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   addTodo,
-  clearCompletedTodos,
-  toggleTodo,
-  deleteTodo
+  clearCompletedTodos
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

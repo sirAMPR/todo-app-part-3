@@ -9,13 +9,10 @@ class TodoItem extends Component {
             className="toggle"
             type="checkbox"
             checked={this.props.completed}
-            onChange={event => this.props.handleComplete(event, this.props.id)}
+            onChange={this.props.handleComplete}
           />
           <label>{this.props.title}</label>
-          <button
-            className="destroy"
-            onClick={event => this.props.handleDelete(event, this.props.id)}
-          />
+          <button className="destroy" onClick={this.props.handleDelete} />
         </div>
       </li>
     );
