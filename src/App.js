@@ -13,28 +13,12 @@ import {
 } from "./actions";
 
 class App extends Component {
-  state = {
-    todos: todosList
-  };
-
   handleComplete = (event, todoId) => {
-    // create copy
-    const newTodos = this.state.todos.slice();
-    // modify copy
-    const newnewTodos = newTodos.map(todo => {
-      // find todo to modify
-      // change it's completed value to true
-      if (todo.id === todoId) todo.completed = !todo.completed;
-      return todo;
-    });
-    // overwrite original
-    this.setState({ todos: newnewTodos });
+    this.props.toggleTodo(todoId);
   };
 
   handleDelete = (event, todoId) => {
-    const newTodos = this.state.todos.slice();
-    const newnewTodos = newTodos.filter(todo => todo.id !== todoId);
-    this.setState({ todos: newnewTodos });
+    this.props.deleteTodo(todoId);
   };
 
   handleAddTodo = event => {
@@ -95,7 +79,7 @@ class App extends Component {
           {/* <!-- This should be `0 items left` by default --> */}
           <span className="todo-count">
             <strong>
-              {this.state.todos.filter(todo => todo.completed === false).length}
+              {this.props.todos.filter(todo => todo.completed === false).length}
             </strong>{" "}
             item(s) left
           </span>

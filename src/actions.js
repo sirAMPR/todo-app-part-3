@@ -6,7 +6,7 @@ export const TOGGLE_TODO = "TOGGLE_TODO",
 
 // action creators
 export function toggleTodo(id) {
-  return { type: TOGGLE_TODO, id };
+  return { type: TOGGLE_TODO, payload: id };
 }
 
 export function addTodo(todoTitle) {
@@ -21,7 +21,7 @@ export function addTodo(todoTitle) {
 }
 
 export function deleteTodo(id) {
-  return { type: DELETE_TODO, id };
+  return { type: DELETE_TODO, payload: id };
 }
 
 export function clearCompletedTodos() {
