@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./index.css";
-import todosList from "./todos.json";
 import { Route, NavLink } from "react-router-dom";
 import TodoList from "./TodoList.js";
 import { connect } from "react-redux";
