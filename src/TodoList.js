@@ -12,7 +12,6 @@ class TodoList extends Component {
             <TodoItem
               title={todo.title}
               completed={todo.completed}
-              id={todo.id}
               handleComplete={event => this.props.toggleTodo(todo.id)}
               handleDelete={event => this.props.deleteTodo(todo.id)}
             />
